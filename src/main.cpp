@@ -2,6 +2,8 @@
 
 HardwareSerial* uartpc;
 SideRangeSensor* right_sensor;
+SideRangeSensor* left_sensor;
+SideRangeSensor* back_sensor;
 
 void setup() {
   uartpc = new HardwareSerial(UART2_RX, UART2_TX);
@@ -9,10 +11,10 @@ void setup() {
   uartpc->begin(UART2_BAUD);
 
   pinMode(LED_BUILTIN, OUTPUT);
-  uartpc->println("START");
-  uartpc->println(UART2_RX);
-  uartpc->println(UART2_TX);
+  uartpc->println("SETUP");
   right_sensor = new SideRangeSensor(right, uartpc);
+  left_sensor = new SideRangeSensor(left, uartpc);
+  back_sensor = new SideRangeSensor(back, uartpc);
 }
 
 void loop() {
