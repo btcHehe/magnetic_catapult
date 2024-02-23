@@ -1,5 +1,5 @@
-#ifndef TOFSENSOR_H
-#define TOFSENSOR_H
+#ifndef SIDE_RANGE_SENSOR_H
+#define SIDE_RANGE_SENSOR_H
 
 #include <Adafruit_VL6180X.h>
 #include <Adafruit_VL53L0X.h>

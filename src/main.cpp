@@ -1,4 +1,5 @@
 #include "SideRangeSensor.h"
+#include "HallSensor.h"
 
 HardwareSerial* uartpc;
 SideRangeSensor* right_sensor;
