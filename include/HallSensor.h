@@ -13,8 +13,10 @@ class HallSensor {
         this->measure_zero();
     }
 
-    uint32_t get_value(uint32_t meas_num=10);
+    uint32_t get_raw_value(uint32_t meas_num=10);
     void measure_zero(uint32_t meas_num=10);
+    uint32_t get_raw_zero();
+    float get_value(uint32_t meas_num=10);
 
     private:
     uint8_t id;

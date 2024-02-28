@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+#define ANALOG_VREF 3.3
+
 #define UART2_TX PA2        // UART2 - serial connection to the PC
 #define UART2_RX PA3
 #define UART2_BAUD 115200
@@ -10,8 +12,8 @@
 #define I2C1_SDA PB7        // I2C connections to range sensors
 #define I2C1_SCL PA15
 
-#define I2C2_SDA PF0
-#define I2C2_SCL PF1
+#define I2C2_SDA PA10
+#define I2C2_SCL PA9
 
 #define I2C3_SDA PC9
 #define I2C3_SCL PA8

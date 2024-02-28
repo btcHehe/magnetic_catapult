@@ -10,8 +10,8 @@ class SideRangeSensor {
     public:
         SideRangeSensor(SensorSide_t side=right, HardwareSerial* uart=nullptr) {
             this->sensor_side = side;
-            this->uart_pc = uart;                         // uart must be started
-            if(this->sensor_side == right) {                     // which side the sensor is on
+            this->uart_pc = uart;                                   // uart must be started
+            if(this->sensor_side == right) {                        // which side the sensor is on
                 this->i2c = new TwoWire(I2C1_SDA, I2C1_SCL);
                 this->sensor_6180 = new Adafruit_VL6180X();
                 this->sensor_53L0 = nullptr;
