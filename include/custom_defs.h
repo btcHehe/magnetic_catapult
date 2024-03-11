@@ -26,7 +26,7 @@ typedef float mag_t;        // processed value of hall sensor [V]
 #define HALL2_PIN PA0
 #define HALL3_PIN PA1
 #define HALL4_PIN PA4       // LEFT FRONT POD
-#define HALL5_PIN PB0
+#define HALL5_PIN PC4
 #define HALL6_PIN PC1
 #define HALL7_PIN PC0
 
@@ -41,11 +41,18 @@ typedef float mag_t;        // processed value of hall sensor [V]
 
 #define HALL_SENSOR_NUM 16
 
-enum SensorSide_t {
+enum SensorSide_t {         // range sensor side
     right = 0,
     left = 1,
     back = 2,
     front = 3
+};
+
+enum PodSide_t {
+    RightBack = 0,
+    LeftBack = 1,
+    LeftFront = 2,
+    RightFront = 3
 };
 
 #endif

@@ -10,7 +10,7 @@ class HallSensor {
         this->id = sensor_id;
         this->pin_num = pin;
         pinMode(this->pin_num, INPUT);
-        this->measure_zero();
+        // this->measure_zero();
     }
 
     mag_raw_t get_raw_value(mag_raw_t meas_num=10);
@@ -18,6 +18,7 @@ class HallSensor {
     mag_raw_t get_raw_zero();
     mag_t get_zero();
     mag_t get_value(mag_raw_t meas_num=10);
+    uint8_t get_id();
 
     private:
     uint8_t id;
