@@ -13,15 +13,17 @@ class HallSensor {
         this->measure_zero();
     }
 
-    uint32_t get_raw_value(uint32_t meas_num=10);
-    void measure_zero(uint32_t meas_num=10);
-    uint32_t get_raw_zero();
-    float get_value(uint32_t meas_num=10);
+    mag_raw_t get_raw_value(mag_raw_t meas_num=10);
+    void measure_zero(mag_raw_t meas_num=10);
+    mag_raw_t get_raw_zero();
+    mag_t get_zero();
+    mag_t get_value(mag_raw_t meas_num=10);
 
     private:
     uint8_t id;
     uint8_t pin_num;
-    uint32_t zeroing_val;
+    mag_raw_t zeroing_raw_val;
+    mag_t zeroing_val;
 };
 
 

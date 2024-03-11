@@ -4,6 +4,9 @@
 #include <Arduino.h>
 
 #define ANALOG_VREF 3.3
+#define MAX_MAG_RAW 4095    // 12-bit ADCs
+typedef uint16_t mag_raw_t; // raw value of hall sensor
+typedef float mag_t;        // processed value of hall sensor [V]
 
 #define UART2_TX PA2        // UART2 - serial connection to the PC
 #define UART2_RX PA3

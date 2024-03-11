@@ -14,14 +14,16 @@ void setup() {
 
   pinMode(LED_BUILTIN, OUTPUT);
   uartpc->println("SETUP");
+  uartpc->println(MAX_MAG_RAW);
   right_sensor = new SideRangeSensor(right, uartpc);
   left_sensor = new SideRangeSensor(left, uartpc);
-  // back_sensor = new SideRangeSensor(back, uartpc);
+  back_sensor = new SideRangeSensor(back, uartpc);
 
   h1 = new HallSensor(PC4, 0);
 }
 
 void loop() {
+
   // put your main code here, to run repeatedly:
   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
 
@@ -29,9 +31,13 @@ void loop() {
   uartpc->println(right_sensor->get_range());
   uartpc->println("Left sensor range [mm]:");
   uartpc->println(left_sensor->get_range());
+  uartpc->println("Back sensor range [mm]:");
+  uartpc->println(back_sensor->get_range());
+  uartpc->println("Hall sensor data:");
   uartpc->println(h1->get_raw_value());
   uartpc->println(h1->get_raw_zero());
   uartpc->println(h1->get_value());
+  uartpc->println(h1->get_zero());
   uartpc->println("-------------------------------------");
 
   //uartpc->println("hi");
