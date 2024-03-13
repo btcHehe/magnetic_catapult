@@ -30,32 +30,28 @@ void setup() {
   LB_pod = new Pod(LeftBack);
   LF_pod = new Pod(LeftFront);
   RF_pod = new Pod(RightFront);
+
+  uartpc->println("back range, left range, right range, RB, LB, LF, RF");
 }
 
 void loop() {
 
   // put your main code here, to run repeatedly:
   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  uartpc->print(back_sensor->get_range());
+  uartpc->print(", ");
+  uartpc->print(left_sensor->get_range());
+  uartpc->print(", ");
+  uartpc->print(right_sensor->get_range());
+  uartpc->print(", ");
+  uartpc->print(RB_pod->get_value());
+  uartpc->print(", ");
+  uartpc->print(LB_pod->get_value());
+  uartpc->print(", ");
+  uartpc->print(LF_pod->get_value());
+  uartpc->print(", ");
+  uartpc->println(RF_pod->get_value());
 
-  uartpc->println("Right sensor range [mm]:");
-  uartpc->println(right_sensor->get_range());
-  uartpc->println("Left sensor range [mm]:");
-  uartpc->println(left_sensor->get_range());
-  uartpc->println("Back sensor range [mm]:");
-  uartpc->println(back_sensor->get_range());
-  uartpc->println("Hall sensor data:");
-
-  RB_pod->print_values(uartpc);
-  LB_pod->print_values(uartpc);
-  LF_pod->print_values(uartpc);
-  // RF_pod->print_values(uartpc);
-  // uartpc->println(h1->get_raw_value());
-  // uartpc->println(h1->get_raw_zero());
-  // uartpc->println(h1->get_value());
-  // uartpc->println(h1->get_zero());
-  uartpc->println("-------------------------------------");
-
-  //uartpc->println("hi");
   delay(1000);                       // wait for a second
   digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
   delay(1000);      
