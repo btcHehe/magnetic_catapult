@@ -28,8 +28,8 @@ void setup() {
   // h1 = new HallSensor(PC4, 0);
   RB_pod = new Pod(RightBack);
   LB_pod = new Pod(LeftBack);
-  // LF_pod = new Pod(LeftFront);
-  // RF_pod = new Pod(RightFront);
+  LF_pod = new Pod(LeftFront);
+  RF_pod = new Pod(RightFront);
 }
 
 void loop() {
@@ -47,7 +47,7 @@ void loop() {
 
   RB_pod->print_values(uartpc);
   LB_pod->print_values(uartpc);
-  // LF_pod->print_values(uartpc);
+  LF_pod->print_values(uartpc);
   // RF_pod->print_values(uartpc);
   // uartpc->println(h1->get_raw_value());
   // uartpc->println(h1->get_raw_zero());

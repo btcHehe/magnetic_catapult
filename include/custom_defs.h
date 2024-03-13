@@ -8,8 +8,8 @@
 typedef uint16_t mag_raw_t; // raw value of hall sensor
 typedef float mag_t;        // processed value of hall sensor [V]
 
-#define UART2_TX PA2        // UART2 - serial connection to the PC
-#define UART2_RX PA3
+#define UART2_TX PC10        // UART2 - serial connection to the PC
+#define UART2_RX PC11
 #define UART2_BAUD 115200
 
 #define I2C1_SDA PB7        // I2C connections to range sensors
