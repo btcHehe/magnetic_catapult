@@ -21,6 +21,11 @@ typedef float mag_t;        // processed value of hall sensor [V]
 #define I2C3_SDA PC9
 #define I2C3_SCL PA8
 
+#define SPI2_MOSI PA11      // SPI connections to 9DoF IMU module
+#define SPI2_MISO PB14
+#define SPI2_SCLK PB13
+#define SPI2_CS PB12
+
 #define HALL0_PIN PC2       // LEFT BACK POD
 #define HALL1_PIN PC3
 #define HALL2_PIN PA0
