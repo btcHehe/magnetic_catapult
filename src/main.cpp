@@ -2,7 +2,7 @@
 #include "HallSensor.h"
 #include "Pod.h"
 #include "IMU9DoF.h"
-#include "misc"
+#include "misc.h"
 
 HardwareSerial* uartpc;
 SideRangeSensor* right_sensor;
