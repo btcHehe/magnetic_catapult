@@ -12,5 +12,12 @@ void signal_boot_finish(int blinks_no=5) {
     }
 }
 
+angle_t rad2deg(angle_t angle_rad) {
+    return 180*angle_rad/MATH_PI;
+}
+
+angle_t deg2rad(angle_t angle_deg) {
+    return MATH_PI*angle_deg/180;
+}
 
 #endif

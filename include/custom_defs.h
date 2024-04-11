@@ -7,6 +7,8 @@
 #define MAX_MAG_RAW 4095    // 12-bit ADCs
 typedef uint16_t mag_raw_t; // raw value of hall sensor
 typedef float mag_t;        // processed value of hall sensor [V]
+typedef float angle_t;      // value of angle 
+#define MATH_PI 3.1415
 
 #define UART2_TX PC10        // UART2 - serial connection to the PC
 #define UART2_RX PC11
@@ -21,10 +23,10 @@ typedef float mag_t;        // processed value of hall sensor [V]
 #define I2C3_SDA PC9
 #define I2C3_SCL PA8
 
-#define SPI2_MOSI PA11      // SPI connections to 9DoF IMU module
+#define SPI2_MOSI PB15      // SPI connections to 9DoF IMU module
 #define SPI2_MISO PB14
 #define SPI2_SCLK PB13
-#define SPI2_CS PB12
+#define SPI2_CS PB10
 
 #define HALL0_PIN PC2       // LEFT BACK POD
 #define HALL1_PIN PC3

@@ -3,33 +3,46 @@
 
 #include <SPI.h>
 #include <HardwareSerial.h>
-#include "MPU9250.h"
+#include <MPU9250_WE.h>
 #include "custom_defs.h"
 
 class IMU9DoF {
     public:
     IMU9DoF(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t cs, HardwareSerial* serial = nullptr) {
-        spi = new SPIClass(mosi, miso, sclk, cs);
-        imu = new MPU9250(*spi, cs);
+        SPI.setMISO(miso);
+        SPI.setMOSI(mosi);
+        SPI.setSCLK(sclk);
+        SPI.setClockDivider(SPI_CLOCK_DIV4);
+        SPI.begin();
+        imu = new MPU9250_WE(&SPI, cs, true);
         uartpc = serial;
-        int status = imu->begin();
-        while(status < 0) {
+        bool status = imu->init();
+        while(!status) {
             if (uartpc != nullptr) {
                 uartpc->println("IMU failed to initialize");
                 uartpc->print("Status: ");
                 uartpc->println(status);
+                break;
             }
             delay(1000);
-            status = imu->begin();
+            status = imu->init();
         }
-        imu->setAccelRange(MPU9250::ACCEL_RANGE_2G);
-        imu->setGyroRange(MPU9250::GYRO_RANGE_250DPS);
-        imu->setDlpfBandwidth(MPU9250::DLPF_BANDWIDTH_20HZ);
-        imu->setSrd(19);    // 50 Hz update rate
+        uartpc->println("IMU connected");
+        imu->autoOffsets();
+        imu->setSampleRateDivider(5);
+        imu->setAccRange(MPU9250_ACC_RANGE_2G);
+        imu->enableAccDLPF(true);
+        imu->setAccDLPF(MPU9250_DLPF_6);
+        delay(200);
     }
 
+    void getGData(float* ret);
+    angle_t getPitch();
+    angle_t getRoll();
+    angle_t getYaw();
+
     private:
-    MPU9250* imu;
+    MPU9250_WE* imu;
     SPIClass* spi;
     HardwareSerial* uartpc;
 };

@@ -13,7 +13,8 @@ Pod* LB_pod;
 Pod* LF_pod;
 Pod* RF_pod;
 
-// IMU9DoF* IMU;
+IMU9DoF* IMU;
+float gData[3];
 
 void setup() {
   analogReadResolution(12);
@@ -21,6 +22,7 @@ void setup() {
   uartpc->begin(UART2_BAUD);
 
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(SPI2_CS, OUTPUT);
   uartpc->println("SETUP");
   uartpc->println(MAX_MAG_RAW);
   right_sensor = new SideRangeSensor(right, uartpc);
@@ -32,9 +34,9 @@ void setup() {
   LF_pod = new Pod(LeftFront);
   RF_pod = new Pod(RightFront);
 
-  // IMU = new IMU9DoF(SPI2_MOSI, SPI2_MISO, SPI2_SCLK, SPI2_CS);
+  IMU = new IMU9DoF(SPI2_MOSI, SPI2_MISO, SPI2_SCLK, SPI2_CS, uartpc);
 
-  uartpc->println("back range, left range, right range, RB, LB, LF, RF");
+  uartpc->println("back range, left range, right range, RB, LB, LF, RF; acc.x, acc.y, acc.z; pitch, roll");
   signal_boot_finish();
 }
 
@@ -52,7 +54,20 @@ void loop() {
   uartpc->print(", ");
   uartpc->print(LF_pod->get_value());
   uartpc->print(", ");
-  uartpc->println(RF_pod->get_value());
+  uartpc->print(RF_pod->get_value());
 
-   
+  uartpc->print("; ");
+  IMU->getGData(gData);
+  uartpc->print(gData[0]);
+  uartpc->print(", ");
+  uartpc->print(gData[1]);
+  uartpc->print(", ");
+  uartpc->print(gData[2]);
+    uartpc->print("; ");
+  uartpc->print(rad2deg(IMU->getPitch()));
+  uartpc->print(", ");
+  uartpc->println(rad2deg(IMU->getRoll()));
+
+
+  delay(1000);
 }
