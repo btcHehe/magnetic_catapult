@@ -59,11 +59,14 @@ angle_t IMU9DoF::getYaw() {
 
 
 void IMU9DoF::integrateOmega() {
+    float omx = this->omega[0];     // previous values of omega
+    float omy = this->omega[1];
+    float omz = this->omega[2];
     float dt = (micros() - this->last_microsecond)/1e6;     // timestep in seconds
     this->readOmega();
-    this->integratedPitch += this->omega[0]*dt;
-    this->integratedRoll += this->omega[1]*dt;
-    this->integratedYaw += this->omega[2]*dt;
+    this->integratedPitch += (omx + this->omega[0])*dt/2;
+    this->integratedRoll += (omy + this->omega[1])*dt/2;
+    this->integratedYaw += (omz + this->omega[2])*dt/2;
 }
 
 
