@@ -95,3 +95,10 @@ angle_t IMU9DoF::getIntRoll() {
 angle_t IMU9DoF::getIntYaw() {
     return integratedYaw;
 }
+
+
+void IMU9DoF::resetInegratedVals() {
+    this->integratedPitch = 0;
+    this->integratedRoll = 0;
+    this->integratedYaw = 0;
+}

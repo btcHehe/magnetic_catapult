@@ -9,7 +9,6 @@ void MeasurementManager::sendMenu() {
 
 }
 
-
 void MeasurementManager::readUART() {
     int s = this->uartpc->read();
     if(s == 1) {
@@ -30,8 +29,13 @@ void MeasurementManager::fullMeasurement() {
     this->YawMeasurement();
     this->uartpc->println("Yaw measurement finished, the cart is stationary");
     this->restMeasurement(MEAS_PER_POINT);
+    this->uartpc->println("The rest of the measurements finished, place the cart to another point");
+    this->sendMenu();
 }
 
+void MeasurementManager::selfCheck() {
+
+}
 
 void MeasurementManager::YawMeasurement() {
     float omegas[3];
@@ -78,5 +82,5 @@ void MeasurementManager::restMeasurement(int iters) {
     this->uartpc->print(", ");
     this->uartpc->print(IMU->getRoll());
     this->uartpc->print(", ");
-    this->uartpc->print(IMU->getYaw());
+    this->uartpc->println(IMU->getYaw());
 }

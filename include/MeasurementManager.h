@@ -26,6 +26,7 @@ class MeasurementManager {
             uartpc->println("back range, left range, right range, RB, LB, LF, RF, pitch, roll, yaw");
             signal_boot_finish();
             uartpc->println("SETUP FINISHED");
+            sendMenu();
         }
 
         void sendMenu();

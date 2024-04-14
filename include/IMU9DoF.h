@@ -51,6 +51,7 @@ class IMU9DoF {
     angle_t getIntRoll();
     angle_t getIntYaw();
     void setIntegratingStartPoint(int start_microsecond);
+    void resetInegratedVals();
 
     private:
     void getGData();
