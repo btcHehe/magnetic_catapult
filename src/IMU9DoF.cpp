@@ -1,15 +1,14 @@
 #include "IMU9DoF.h"
 
-void IMU9DoF::getGData(float* ret) {
+void IMU9DoF::getGData() {
     xyzFloat gvals = this->imu->getGValues();
-    ret[0] = gvals.x;
-    ret[1] = gvals.y;
-    ret[2] = gvals.z;
+    this->g[0] = gvals.x;
+    this->g[1] = gvals.y;
+    this->g[2] = gvals.z;
 }
 
 angle_t IMU9DoF::getPitch() {
-    float g[3];    // gx, gy, gz
-    this->getGData(g);
+    this->getGData();
     float G = sqrt(g[0]*g[0] + g[1]*g[1] + g[2]*g[2]);
     angle_t alfa1 = asin(g[0]/G);
     angle_t alfa2 = acos(sqrt(g[1]*g[1]/(G*G) + g[2]*g[2]/(G*G)));
@@ -32,8 +31,7 @@ angle_t IMU9DoF::getPitch() {
 }
 
 angle_t IMU9DoF::getRoll() {
-    float g[3];    // gx, gy, gz
-    this->getGData(g);
+    this->getGData();
     float G = sqrt(g[0]*g[0] + g[1]*g[1] + g[2]*g[2]);
     angle_t beta1 = asin(g[1]/G);
     angle_t beta2 = acos(sqrt(g[0]*g[0] + g[2]*g[2])/G);
@@ -56,5 +54,44 @@ angle_t IMU9DoF::getRoll() {
 }
 
 angle_t IMU9DoF::getYaw() {
+    return integratedYaw;
+}
 
+
+void IMU9DoF::integrateOmega() {
+    float dt = (micros() - this->last_microsecond)/1e6;     // timestep in seconds
+    this->readOmega();
+    this->integratedPitch += this->omega[0]*dt;
+    this->integratedRoll += this->omega[1]*dt;
+    this->integratedYaw += this->omega[2]*dt;
+}
+
+
+void IMU9DoF::readOmega() {
+    xyzFloat gyr = this->imu->getGyrValues();
+    this->omega[0] = gyr.x;
+    this->omega[1] = gyr.y;
+    this->omega[2] = gyr.z;
+}
+
+
+void IMU9DoF::getOmega(float* ome) {
+    ome = this->omega;
+}
+
+
+void IMU9DoF::setIntegratingStartPoint(int start_microsecond) {
+    this->last_microsecond = start_microsecond;
+}
+
+angle_t IMU9DoF::getIntPitch() {
+    return integratedPitch;
+}
+
+angle_t IMU9DoF::getIntRoll() {
+    return integratedRoll;
+}
+
+angle_t IMU9DoF::getIntYaw() {
+    return integratedYaw;
 }

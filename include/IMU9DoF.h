@@ -33,18 +33,40 @@ class IMU9DoF {
         imu->setAccRange(MPU9250_ACC_RANGE_2G);
         imu->enableAccDLPF(true);
         imu->setAccDLPF(MPU9250_DLPF_6);
+        integratedYaw = 0;
+        integratedPitch = 0;
+        integratedRoll = 0;
+        Roll = 0;
+        Yaw = 0;
+        Pitch = 0;
         delay(200);
     }
 
-    void getGData(float* ret);
     angle_t getPitch();
     angle_t getRoll();
     angle_t getYaw();
+    void getOmega(float* ome);
+    void integrateOmega();
+    angle_t getIntPitch();
+    angle_t getIntRoll();
+    angle_t getIntYaw();
+    void setIntegratingStartPoint(int start_microsecond);
 
     private:
+    void getGData();
+    void readOmega();
+    angle_t integratedYaw;
+    angle_t integratedRoll;
+    angle_t integratedPitch;
+    angle_t Yaw;
+    angle_t Pitch;
+    angle_t Roll;
     MPU9250_WE* imu;
     SPIClass* spi;
     HardwareSerial* uartpc;
+    float g[3];
+    float omega[3]; // angular velocity (x, y, z)
+    int last_microsecond;     // last time measurement in microsecond (for integration purposes) !!WARNING!! micros() function overflows in 70 minutes !!!
 };
 
 
