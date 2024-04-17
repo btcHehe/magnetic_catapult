@@ -15,19 +15,13 @@ angle_t IMU9DoF::getPitch() {
     angle_t alfa3 = 0;
     if(alfa1 >= -MATH_PI/4 && alfa1 <= MATH_PI/4) {
         alfa3 = alfa1;
-    } else { 
+    } else if (alfa1 > MATH_PI/4){ 
         alfa3 = alfa2;
+    } else {
+        alfa3 = -alfa2;
     }
-    angle_t w1 = cos(alfa3)*cos(alfa3);
-    angle_t w2 = sin(alfa3)*sin(alfa3);
-    angle_t alfa4 = w1*alfa1 + w2*alfa2;
-    if(g[2] > 0 ) {
-        return alfa4;
-    } else if(g[2] < 0 && alfa4 > 0) {
-        return MATH_PI-alfa4;
-    } else if(g[2] < 0 && alfa4 < 0) {
-        return -MATH_PI-alfa4;
-    }
+    return alfa3;
+
 }
 
 angle_t IMU9DoF::getRoll() {
@@ -38,19 +32,12 @@ angle_t IMU9DoF::getRoll() {
     angle_t beta3 = 0;
     if(beta1 >= -MATH_PI/4 && beta1 <= MATH_PI/4) {
         beta3 = beta1;
-    } else { 
+    } else if (beta1 > MATH_PI/4) { 
         beta3 = beta2;
+    } else {
+        beta3 = -beta2;
     }
-    angle_t w1 = cos(beta3)*cos(beta3);
-    angle_t w2 = sin(beta3)*sin(beta3);
-    angle_t beta4 = w1*beta1 + w2*beta2;
-    if(g[2] > 0 ) {
-        return beta4;
-    } else if(g[2] < 0 && beta4 > 0) {
-        return MATH_PI-beta4;
-    } else if(g[2] < 0 && beta4 < 0) {
-        return -MATH_PI-beta4;
-    }
+    return beta3;
 }
 
 angle_t IMU9DoF::getYaw() {
