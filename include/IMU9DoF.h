@@ -33,6 +33,9 @@ class IMU9DoF {
         imu->setAccRange(MPU9250_ACC_RANGE_2G);
         imu->enableAccDLPF(true);
         imu->setAccDLPF(MPU9250_DLPF_6);
+        imu->enableGyrDLPF();
+        imu->setGyrDLPF(MPU9250_DLPF_6);
+        imu->setGyrRange(MPU9250_GYRO_RANGE_250);
         integratedYaw = 0;
         integratedPitch = 0;
         integratedRoll = 0;

@@ -3,6 +3,10 @@
 
 #include <Arduino.h>
 
+#define RANGE_MEASURED_MM 200
+#define SENSOR_OFFSET_MM 17
+#define SENSOR_SIDE 1
+
 #define ANALOG_VREF 3.3
 #define MAX_MAG_RAW 4095    // 12-bit ADCs
 typedef uint16_t mag_raw_t; // raw value of hall sensor
@@ -10,7 +14,7 @@ typedef float mag_t;        // processed value of hall sensor [V]
 typedef float angle_t;      // value of angle 
 #define MATH_PI 3.1415
 #define EPSILON_OMEGA 0.01  // ~0.5 deg threshold under which we say the cart is stationary
-#define MEAS_PER_POINT 30   // number of measurements taken per point
+#define MEAS_PER_POINT 100   // number of measurements taken per point
 
 #define UART2_TX PC10        // UART2 - serial connection to the PC
 #define UART2_RX PC11
@@ -58,10 +62,10 @@ enum SensorSide_t {         // range sensor side
 };
 
 enum PodSide_t {
-    RightBack = 0,
-    LeftBack = 1,
-    LeftFront = 2,
-    RightFront = 3
+    LeftBack = 0,
+    LeftFront = 1,
+    RightFront = 2,
+    RightBack = 3
 };
 
 #endif

@@ -10,27 +10,54 @@ void MeasurementManager::sendMenu() {
 }
 
 void MeasurementManager::readUART() {
-    int s = this->uartpc->read();
+    this->fullMeasurement();
+    char s;
+    if (this->uartpc->available()) {
+        s = this->uartpc->read();
+        this->uartpc->print("received: ");
+        this->uartpc->println(s);
+    }
+    
     if(s == 1) {
         this->fullMeasurement();
     } else if(s == 2) {
         
     } else if(s == 3) {
         SystemInit();
-    } else {
-        this->uartpc->println("It is not the correct option, please try again");
-        this->sendMenu();
-    }
+    } //else {
+    //     this->uartpc->println("It is not the correct option, please try again");
+    //     this->sendMenu();
+    // }
 }
 
 void MeasurementManager::fullMeasurement() {
-    this->uartpc->println("Performing integration measusrement");
-    this->uartpc->println("omega.x, omega.y, omega.z, pitch, roll, yaw");
-    this->YawMeasurement();
-    this->uartpc->println("Yaw measurement finished, the cart is stationary");
+    // this->uartpc->println("Performing integration measusrement");
+    // this->uartpc->println("omega.x, omega.y, omega.z, pitch, roll, yaw");
+    // //this->YawMeasurement();
+    // this->uartpc->println("Yaw measurement finished, the cart is stationary");
+    // this->uartpc->println("back range, left range, right range, LB_rb, LB_lb, LB_lf, LB_rf, LF_rb, LF_lb, LF_lf, LF_rf, RF_rb, RF_lb, RF_lf, RF_rf, RB_rb, RB_lb, RB_lf, RB_rf, pitch, roll, yaw");
+    // this->restMeasurement(MEAS_PER_POINT);
+    // this->uartpc->println("The rest of the measurements finished, place the cart to another point");
+    // this->sendMenu();
+    if (SENSOR_SIDE == back) {
+        this->uartpc->print("Back ");
+    } else if (SENSOR_SIDE == right) {
+        this->uartpc->print("Right ");
+    } else if (SENSOR_SIDE == left) {
+        this->uartpc->print("Left ");
+    }
+    this->uartpc->println("range sensor calibration");
+    this->uartpc->print("Sensor offset [mm]: ");
+    this->uartpc->println(SENSOR_OFFSET_MM);
+    this->uartpc->print("Measured range [mm]: ");
+    this->uartpc->println(RANGE_MEASURED_MM - SENSOR_OFFSET_MM);
+    this->uartpc->print("Number of samples: ");
+    this->uartpc->println(MEAS_PER_POINT);
     this->restMeasurement(MEAS_PER_POINT);
-    this->uartpc->println("The rest of the measurements finished, place the cart to another point");
-    this->sendMenu();
+    this->uartpc->println("FINISHED");
+    while(true) {
+
+    }
 }
 
 void MeasurementManager::selfCheck() {
@@ -59,28 +86,57 @@ void MeasurementManager::sendIntegratedData(float* ome, float pitch, float roll,
     this->uartpc->print(", ");
     this->uartpc->print(roll);
     this->uartpc->print(", ");
-    this->uartpc->print(yaw);
-    this->uartpc->print(", ");
+    this->uartpc->println(yaw);
 }
 
 void MeasurementManager::restMeasurement(int iters) {
-    this->uartpc->print(back_sensor->get_range());
-    this->uartpc->print(", ");
-    this->uartpc->print(left_sensor->get_range());
-    this->uartpc->print(", ");
-    this->uartpc->print(right_sensor->get_range());
-    this->uartpc->print(", ");
-    this->uartpc->print(RB_pod->get_value());
-    this->uartpc->print(", ");
-    this->uartpc->print(LB_pod->get_value());
-    this->uartpc->print(", ");
-    this->uartpc->print(LF_pod->get_value());
-    this->uartpc->print(", ");
-    this->uartpc->print(RF_pod->get_value());
-    this->uartpc->print(", ");
-    this->uartpc->print(IMU->getPitch());
-    this->uartpc->print(", ");
-    this->uartpc->print(IMU->getRoll());
-    this->uartpc->print(", ");
-    this->uartpc->println(IMU->getYaw());
+    for(int i=0; i<iters; i++) {
+        if (SENSOR_SIDE == back) {
+            this->uartpc->println(back_sensor->get_range());
+        } else if (SENSOR_SIDE == right) {
+            this->uartpc->println(right_sensor->get_range());
+        } else if (SENSOR_SIDE == left) {
+            this->uartpc->println(left_sensor->get_range());
+        }
+
+        // this->uartpc->print(", ");
+        // this->uartpc->print(LB_pod->get_rb_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(LB_pod->get_lb_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(LB_pod->get_lf_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(LB_pod->get_rf_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(LF_pod->get_rb_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(LF_pod->get_lb_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(LF_pod->get_lf_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(LF_pod->get_rf_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(RF_pod->get_rb_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(RF_pod->get_lb_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(RF_pod->get_lf_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(RF_pod->get_rf_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(RB_pod->get_rb_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(RB_pod->get_lb_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(RB_pod->get_lf_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(RB_pod->get_rf_value());
+        // this->uartpc->print(", ");
+        // this->uartpc->print(IMU->getPitch()*180/MATH_PI);
+        // this->uartpc->print(", ");
+        // this->uartpc->print(IMU->getRoll()*180/MATH_PI);
+        // this->uartpc->print(", ");
+        // this->uartpc->println(IMU->getYaw()*180/MATH_PI);
+    }
+
 }

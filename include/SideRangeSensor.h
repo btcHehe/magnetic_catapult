@@ -67,7 +67,7 @@ class SideRangeSensor {
             delete uart_pc;
         }
 
-        uint8_t get_range();
+        uint16_t get_range();
         uint8_t get_range_status();
     private:
         SensorSide_t sensor_side;

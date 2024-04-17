@@ -2,6 +2,7 @@
 #define MISC_H
 
 #include <Arduino.h>
+#include "custom_defs.h"
 
 void signal_boot_finish(int blinks_no=5) {
     for (int i=0; i<blinks_no; i++) {
@@ -12,11 +13,11 @@ void signal_boot_finish(int blinks_no=5) {
     }
 }
 
-angle_t rad2deg(angle_t angle_rad) {
+angle_t rad2deg_own(angle_t angle_rad) {
     return 180*angle_rad/MATH_PI;
 }
 
-angle_t deg2rad(angle_t angle_deg) {
+angle_t deg2rad_own(angle_t angle_deg) {
     return MATH_PI*angle_deg/180;
 }
 

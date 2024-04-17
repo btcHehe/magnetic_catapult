@@ -2,7 +2,6 @@
 #define MEASUREMENT_MANAGER_H
 
 #include "IMU9DoF.h"
-#include "misc.h"
 #include "SideRangeSensor.h"
 #include "Pod.h"
 
@@ -10,9 +9,10 @@
 class MeasurementManager {
     public:
         MeasurementManager() {
-            uartpc->println("SETUP");
+
             uartpc = new HardwareSerial(UART2_RX, UART2_TX);
             uartpc->begin(UART2_BAUD);
+            uartpc->println("SETUP");
             right_sensor = new SideRangeSensor(right, uartpc);
             left_sensor = new SideRangeSensor(left, uartpc);
             back_sensor = new SideRangeSensor(back, uartpc);
@@ -23,10 +23,9 @@ class MeasurementManager {
             RF_pod = new Pod(RightFront);
 
             IMU = new IMU9DoF(SPI2_MOSI, SPI2_MISO, SPI2_SCLK, SPI2_CS, uartpc);
-            uartpc->println("back range, left range, right range, RB, LB, LF, RF, pitch, roll, yaw");
-            signal_boot_finish();
+            //signal_boot_finish();
             uartpc->println("SETUP FINISHED");
-            sendMenu();
+            //sendMenu();
         }
 
         void sendMenu();

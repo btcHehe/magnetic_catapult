@@ -1,7 +1,7 @@
 #include "SideRangeSensor.h"
 
         
-uint8_t SideRangeSensor::get_range() {
+uint16_t SideRangeSensor::get_range() {
     if(this->sensor_side == right || this->sensor_side == left) {
         return this->sensor_6180->readRange();
     } else {
