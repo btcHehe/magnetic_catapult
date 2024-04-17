@@ -10,6 +10,8 @@ void MeasurementManager::sendMenu() {
 }
 
 void MeasurementManager::readUART() {
+    this->restMeasurement(MEAS_PER_POINT);
+    return;
     int s = this->uartpc->read();
     if(s == 1) {
         this->fullMeasurement();
@@ -26,11 +28,11 @@ void MeasurementManager::readUART() {
 void MeasurementManager::fullMeasurement() {
     this->uartpc->println("Performing integration measusrement");
     this->uartpc->println("omega.x, omega.y, omega.z, pitch, roll, yaw");
-    this->YawMeasurement();
+    //this->YawMeasurement();
     this->uartpc->println("Yaw measurement finished, the cart is stationary");
     this->restMeasurement(MEAS_PER_POINT);
     this->uartpc->println("The rest of the measurements finished, place the cart to another point");
-    this->sendMenu();
+    //this->sendMenu();
 }
 
 void MeasurementManager::selfCheck() {
@@ -59,8 +61,7 @@ void MeasurementManager::sendIntegratedData(float* ome, float pitch, float roll,
     this->uartpc->print(", ");
     this->uartpc->print(roll);
     this->uartpc->print(", ");
-    this->uartpc->print(yaw);
-    this->uartpc->print(", ");
+    this->uartpc->println(yaw);
 }
 
 void MeasurementManager::restMeasurement(int iters) {
@@ -78,9 +79,10 @@ void MeasurementManager::restMeasurement(int iters) {
     this->uartpc->print(", ");
     this->uartpc->print(RF_pod->get_value());
     this->uartpc->print(", ");
-    this->uartpc->print(IMU->getPitch());
+    this->uartpc->print(IMU->getPitch()*180/MATH_PI);
     this->uartpc->print(", ");
-    this->uartpc->print(IMU->getRoll());
+    this->uartpc->print(IMU->getRoll()*180/MATH_PI);
     this->uartpc->print(", ");
-    this->uartpc->println(IMU->getYaw());
+    this->uartpc->println(IMU->getYaw()*180/MATH_PI);
+    delay(100);
 }
