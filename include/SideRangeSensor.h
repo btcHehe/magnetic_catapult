@@ -53,8 +53,10 @@ class SideRangeSensor {
             }
             if(this->sensor_side == right){
                  this->uart_pc->println("Right sensor found");
+                 this->sensor_6180->setOffset(RIGHT_RANGE_SENSOR_OFFSET);
             } else if(this->sensor_side == left) {
                 this->uart_pc->println("Left sensor found");
+                this->sensor_6180->setOffset(LEFT_RANGE_SENSOR_OFFSET);
             } else if(this->sensor_side == back) {
                 this->uart_pc->println("Back sensor found");
             }

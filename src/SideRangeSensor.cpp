@@ -5,7 +5,7 @@ uint8_t SideRangeSensor::get_range() {
     if(this->sensor_side == right || this->sensor_side == left) {
         return this->sensor_6180->readRange();
     } else {
-        return this->sensor_53L0->readRange();
+        return this->sensor_53L0->readRange() - BACK_RANGE_SENSOR_OFFSET;
     }
 }
 

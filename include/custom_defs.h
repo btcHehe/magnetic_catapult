@@ -50,6 +50,10 @@ typedef float angle_t;      // value of angle
 
 #define HALL_SENSOR_NUM 16
 
+#define LEFT_RANGE_SENSOR_OFFSET 17
+#define RIGHT_RANGE_SENSOR_OFFSET 17
+#define BACK_RANGE_SENSOR_OFFSET 5
+
 enum SensorSide_t {         // range sensor side
     right = 0,
     left = 1,
