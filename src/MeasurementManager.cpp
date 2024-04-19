@@ -50,7 +50,7 @@ void MeasurementManager::fullMeasurement() {
     this->uartpc->print("Sensor offset [mm]: ");
     this->uartpc->println(SENSOR_OFFSET_MM);
     this->uartpc->print("Measured range [mm]: ");
-    this->uartpc->println(RANGE_MEASURED_MM - SENSOR_OFFSET_MM);
+    this->uartpc->println(RANGE_MEASURED_MM);
     this->uartpc->print("Number of samples: ");
     this->uartpc->println(MEAS_PER_POINT);
     this->restMeasurement(MEAS_PER_POINT);

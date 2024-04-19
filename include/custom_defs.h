@@ -3,9 +3,9 @@
 
 #include <Arduino.h>
 
-#define RANGE_MEASURED_MM 200
-#define SENSOR_OFFSET_MM 17
-#define SENSOR_SIDE 1
+#define RANGE_MEASURED_MM 50
+#define SENSOR_OFFSET_MM 5
+#define SENSOR_SIDE 2
 
 #define ANALOG_VREF 3.3
 #define MAX_MAG_RAW 4095    // 12-bit ADCs
