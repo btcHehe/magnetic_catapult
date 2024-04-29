@@ -24,7 +24,7 @@ class MeasurementManager {
             RF_pod = new Pod(RightFront);
 
             IMU = new IMU9DoF(SPI2_MOSI, SPI2_MISO, SPI2_SCLK, SPI2_CS, uartpc);
-            uartpc->println("back range, left range, right range, RB, LB, LF, RF, pitch, roll, yaw");
+            uartpc->println("back range, left range, right range, RBrb, RBlb, RBlf, RBrf, LBrb, LBlb, LBlf, LBrf, LFrb, LFlb, LFlf, LFrf, RFrb, RFlb, RFlf, RFrf, pitch, roll, yaw");
             //signal_boot_finish();
             uartpc->println("SETUP FINISHED");
             sendMenu();

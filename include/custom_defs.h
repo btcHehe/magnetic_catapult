@@ -11,7 +11,7 @@ typedef float angle_t;      // value of angle
 typedef float range_t;      // range type [mm]
 #define MATH_PI 3.1415
 #define EPSILON_OMEGA 0.01  // ~0.5 deg threshold under which we say the cart is stationary
-#define MEAS_PER_POINT 30   // number of measurements taken per point
+#define MEAS_PER_POINT 100   // number of measurements taken per point
 
 #define UART2_TX PC10        // UART2 - serial connection to the PC
 #define UART2_RX PC11

@@ -16,6 +16,7 @@ void setup() {
 }
 
 void loop() {
-  delay(50);
-  mm->readUART();
+  
+  mm->fullMeasurement();
+  delay(500);
 }
